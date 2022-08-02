@@ -1,0 +1,136 @@
+basePath: /
+definitions:
+  productApp.ProductItem:
+    properties:
+      description:
+        type: string
+      id:
+        type: integer
+      kcal:
+        type: integer
+      title:
+        type: string
+    required:
+    - title
+    type: object
+  productApp.ProductList:
+    properties:
+      id:
+        type: integer
+      title:
+        type: string
+    required:
+    - title
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: API Server for ProductList Application
+  title: ProductList App API
+  version: "1.0"
+paths:
+  /api/lists/:
+    post:
+      consumes:
+      - application/json
+      description: create a new list
+      parameters:
+      - description: product info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/productApp.ProductList'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+      summary: Create a new list
+      tags:
+      - List
+  /api/lists/{id}:
+    post:
+      consumes:
+      - application/json
+      description: get list by ID
+      parameters:
+      - description: List ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/productApp.ProductList'
+      summary: Get list by ID
+      tags:
+      - List
+  /api/lists/{id}/products:
+    get:
+      consumes:
+      - application/json
+      description: Get all products from list
+      parameters:
+      - description: List ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/productApp.ProductItem'
+            type: array
+      summary: Get all products from list
+      tags:
+      - product
+    post:
+      consumes:
+      - application/json
+      description: create a new product
+      parameters:
+      - description: product info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/productApp.ProductItem'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+      summary: Create a new product
+      tags:
+      - product
+  /api/products:
+    get:
+      consumes:
+      - application/json
+      description: Get all products from db
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/productApp.ProductItem'
+            type: array
+      summary: Get all products
+      tags:
+      - product
+swagger: "2.0"

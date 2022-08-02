@@ -1,0 +1,208 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "API Server for ProductList Application",
+        "title": "ProductList App API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/",
+    "paths": {
+        "/api/lists/": {
+            "post": {
+                "description": "create a new list",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "List"
+                ],
+                "summary": "Create a new list",
+                "parameters": [
+                    {
+                        "description": "product info",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/productApp.ProductList"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/lists/{id}": {
+            "post": {
+                "description": "get list by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "List"
+                ],
+                "summary": "Get list by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "List ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/productApp.ProductList"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/lists/{id}/products": {
+            "get": {
+                "description": "Get all products from list",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "product"
+                ],
+                "summary": "Get all products from list",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "List ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/productApp.ProductItem"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "create a new product",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "product"
+                ],
+                "summary": "Create a new product",
+                "parameters": [
+                    {
+                        "description": "product info",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/productApp.ProductItem"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/products": {
+            "get": {
+                "description": "Get all products from db",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "product"
+                ],
+                "summary": "Get all products",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/productApp.ProductItem"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "productApp.ProductItem": {
+            "type": "object",
+            "required": [
+                "title"
+            ],
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "kcal": {
+                    "type": "integer"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "productApp.ProductList": {
+            "type": "object",
+            "required": [
+                "title"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
